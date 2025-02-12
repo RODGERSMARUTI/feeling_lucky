@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glitchy Hacker Terminal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+        body {
+            background: black;
+            color: #0f0;
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            padding: 20px;
+            white-space: pre;
+        }
+        #terminal {
+            height: 80vh;
+            overflow: auto;
+            white-space: pre-wrap;
+        }
+        .glitch {
+            animation: glitch 0.2s 1; /* Reduced intensity, one glitch per message */
+        }
+        @keyframes glitch {
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(-2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div id="terminal" aria-live="polite"></div>
+    <audio id="typeSound" src="https://www.fesliyanstudios.com/play-mp3/6488" preload="auto"></audio>
+    <script>
+        const terminal = document.getElementById("terminal");
+        const hackerMessages = [
+          "ACCESS GRANTED TO RAJ...",
+"CONNECTING TO RAJCLOUDSVR1: 192.168.1....",
+"DECODING AES-256 ENCRYPTION FOR WHATSAPP DATABASE...",
+"INJECTING MALICIOUS DEX FILE VIA ADB...",
+"BY-PASSING FIREWALLS AND PHONE PASSWORDS...",
+"FIREWALL DETECTED. ATTEMPTING BRUTE-FORCE ATTACK...",
+"PASSWORD HASH CRACKED: [redacted]...",
+"ROOT PRIVILEGES ACQUIRED. SETUID BIT EXPLOITED...",
+"DOWNLOADING /DCIM/Camera: 35%...",
+"DOWNLOADING /WhatsApp/Media: 70%...",
+"DOWNLOADING /Download/*: 95%...",
+"DECRYPTING 256-BIT AES CIPHERS...",
+"RAJ'S TERMINAL ENGAGED...",
+"INITIATING SMS SPOOFING ATTACK FOR 2FA BYPASS...",
+"TWO-FACTOR AUTHENTICATION BYPASSED. OTP RECEIVED: [redacted]...",
+"ACCESSING GPS DATA...",
+"LOCATION DATA ACQUIRED: LAT: 37.7749, LONG: -122.4194 ", // Example coordinates
+"SENDING LOCATION DATA TO SERVER...",
+"GHOST PROTOCOL ACTIVATED...",
+"CLEANING LOGS... NO TRACE LEFT...",
+"DATA SENT SUCCESSFULLY...."
+        ];
+        const typeSound = document.getElementById("typeSound");
+
+        async function typeText(text, speed = 20) {
+            terminal.classList.add("glitch");
+            typeSound.play();
+            for (let i = 0; i < text.length; i++) {
+                terminal.innerHTML += text[i];
+                terminal.scrollTop = terminal.scrollHeight;
+                await new Promise(resolve => setTimeout(resolve, speed));
+            }
+            typeSound.pause();
+            terminal.classList.remove("glitch");
+            terminal.innerHTML += "\n";
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        async function startHacking() {
+            let delay = 300;
+            for (let i = 0; i < hackerMessages.length; i++) { // Corrected loop
+                await new Promise(resolve => setTimeout(resolve, delay * i));
+                await typeText(hackerMessages[i], 10); // Await typeText
+            }
+        }
+
+        setTimeout(startHacking, 500);
+    </script>
+</body>
+</html>
